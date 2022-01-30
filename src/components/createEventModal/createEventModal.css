@@ -1,0 +1,197 @@
+.modal {
+    width: min(1450px, 60%);
+    height: min(950px, 80%);
+    /* Might want to make the responsiveness here clamp() */
+
+    margin: auto;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 3.25% 4%; 
+    /* Theres an issue with the padding when you make the window super long */
+    
+    box-sizing: border-box;
+    background-color: #fff;
+
+    z-index: 999;
+}
+
+.eventDetailModalContent {
+    width: 100%;
+    height: 100%;
+}
+
+.modalFlexboxContainer {
+    display: flex;
+    width: 100%;
+    column-gap: 8%;
+    height: 100%;
+}
+
+.eventDetails {
+    flex: 1.75;
+    display: flex;
+    flex-direction: column;
+}
+
+.groupDetails {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.closeModalCrossButton {
+    cursor: pointer;
+    font-size: 18px;
+    position: absolute;
+    top: 3%;
+    right: 3%;
+}
+
+
+/* Styling the event details section */
+.eventTitle {
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.eventDetails > * {
+    font-size: 18px;
+}
+
+.hostUsername {
+    font-weight: 600;
+}
+
+.dateAndTimeModalInfo {
+    display: flex;
+    border-bottom: 2px solid #CED0D4;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+.date {
+    flex: 1;
+}
+.date > .far {
+    margin-right: 40px;
+}
+.time {
+    flex: 1;
+}
+.time > .far {
+    margin-right: 40px;
+}
+
+.hostInfo {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: start;
+}
+.hostInfo > .far {
+    margin-right: 40px;
+}
+
+.address {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: start;
+}
+.address > .fas {
+    margin-right: 40.75px;
+    font-size: 20px;
+}
+
+.descriptionInfo {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: start;
+    height: 80%;
+}
+.descriptionInfo > .fas {
+    margin-right: 40px;
+    font-size: 18px;
+    position: relative;
+    top: 3px;
+}
+
+
+/* Form styling */
+.eventTitleInput {
+    outline: none;
+    border: none;
+    width: 100%;
+    font-size: 2em
+}
+
+.timeInput {
+    font-size: 18px;
+    outline: none;
+    border: none;
+    width: calc(100% - 58px);
+}
+
+
+.addressInput {
+    font-size: 18px;
+    outline: none;
+    border: none;
+    width: calc(100% - 55.75px);
+}
+
+.descriptionInput {
+    font-size: 18px;
+    outline: none;
+    border: none;
+    width: calc(100% - 55px);
+    resize: none;
+    height: 100%;
+}
+
+
+input[type=text] {
+    border-bottom: 2px solid rgba(78, 234, 195, 0);
+}
+
+input[type=text]:focus {
+    border-bottom: 2px solid #4EA6EA;
+    transition: 0.25s;
+}
+
+
+textarea[type=text] {
+    border-bottom: 2px solid rgba(78, 234, 195, 0);
+}
+
+textarea[type=text]:focus {
+    border-bottom: 2px solid #4EA6EA;
+    transition: 0.25s;
+}
+
+
+/* Group members' availabilities details styling */
+.groupDetails {
+    margin-top: 72.5px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.availabilityNavBar {
+    display: flex;
+    font-size: 18px;
+    border-bottom: 2px solid #CED0D4;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.members {
+    flex: 1;
+    display: flex;
+}
+
+
+

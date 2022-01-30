@@ -1,0 +1,17 @@
+.topbar {
+    width: 100vw;
+    height: 55px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    margin: 0px 50px;
+}
+
+.userProfile {
+    margin: 0px 50px;
+}

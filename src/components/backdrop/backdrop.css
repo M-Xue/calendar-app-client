@@ -1,0 +1,16 @@
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: #00000060;
+
+    /* Need this positioning because the modal that appears is contained within the div responsible for the backdrop */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* 999 is for the modal div's z-index */
+    z-index: 998; 
+}

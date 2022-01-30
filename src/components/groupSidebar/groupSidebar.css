@@ -1,0 +1,42 @@
+
+.groupSidebar {
+    width: 100%;
+
+    display:flex;
+    flex-direction:column;
+    /* The stretch to bottom of div trick described in calendarPage.css */
+}
+
+.groupSidebar > * {
+    flex-shrink: 0;
+}
+/* The stretch to bottom of div trick */
+
+.groupSearchbar {
+    height: 44px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.groupDetails {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1; 
+    /* The stretch to bottom of div trick */
+}
+
+.groupEvents {
+    flex: 1;
+    border-bottom: 2px solid #CED0D4;
+}
+
+.groupMembers {
+    flex: 1;
+    margin-top: 20px;
+}
+
+.sidebarSubheading {
+    font-size: 24px;
+    font-weight: 600;
+}

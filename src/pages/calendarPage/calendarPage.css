@@ -1,0 +1,59 @@
+.calendarPage {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* This div is so that the background colour stays in the view port event if the screen is extended due to viewport resizing issues */
+.backgroundColour {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #F0F2F5;
+    z-index: -999;
+}
+
+/* You want the container to always fill the entire viewport but because we need to account for the topba, which is 55px, we use the calc() function */
+.contentContainer {
+    display: flex;
+    height: calc(100% - 55px);
+}
+
+.mainContent {
+    flex: 9;
+    margin: 30px;
+
+    /* Everything below until the end of .calendarContent was from this post https://stackoverflow.com/questions/147528/how-do-i-force-a-div-block-to-extend-to-the-bottom-of-a-page-even-if-it-has-no-c */
+    /* The demo is here http://jsfiddle.net/NN7ky */
+    
+    display:flex;
+    flex-direction:column;
+}
+
+.mainContent > * {
+    flex-shrink: 0;
+}
+
+.calendarContent {
+    flex-grow: 1;
+}
+
+/* End of the dragging the last content down to the bottom of the page */
+
+.groupName {
+    font-size: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.groupName > div {
+    font-weight: 600;
+}
+
+.sidebarContent {
+    flex: 3.5;
+    margin: 30px;
+    display: flex;
+}

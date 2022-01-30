@@ -1,0 +1,138 @@
+.navigation-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.month-select {
+  background: none;
+  border: none;
+  appearance: none;
+
+  font-size: 25px;
+  box-sizing: border-box;
+  text-align: center;
+
+  cursor: pointer;
+  padding: 10px;
+
+  margin: 0 15px;
+
+  border-bottom: 2px solid #CED0D4;
+
+  font-weight: 600;
+}
+
+.month-option {
+  font-weight: 400;
+  background: white;
+  font-size: 15px;
+  width: 161.767px;
+}
+
+
+.year-select {
+  background: none;
+  border: none;
+  appearance: none;
+
+  font-size: 25px;
+  box-sizing: border-box;
+  text-align: center;
+
+  cursor: pointer;
+  padding: 10px;
+
+  margin: 0 15px;
+
+  border-bottom: 2px solid #CED0D4;
+
+  font-weight: 600;
+}
+
+
+.year-option {
+  font-weight: 400;
+  background: white;
+  font-size: 15px;
+  width: 93.1333px;
+}
+
+
+
+.fas {
+  font-size: 30px;
+}
+
+.month-nav-arrow-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+
+
+.calendar-root {
+  box-sizing: border-box;
+  padding: 50px 100px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.25);
+  height: 100%; 
+  width: 100%;
+  /* This is so that the calendar component stretches to fill its parent container */
+
+
+  /* The trick below was from this post https://stackoverflow.com/questions/147528/how-do-i-force-a-div-block-to-extend-to-the-bottom-of-a-page-even-if-it-has-no-c */
+  /* The demo is here http://jsfiddle.net/NN7ky */
+
+  display:flex; 
+  flex-direction:column;
+}
+
+
+.calendar-root > * {
+  flex-shrink: 0;
+}
+
+/* This is the end of this section of the trick. There's one more part at the days-grid class in the line flex-grow: 1; */
+
+
+
+/* | Sun | Mon | Tue | Wed | Thu | Fri | Sat  */
+.day-of-week-header-cell {
+  color: rgba(0, 0, 0, 0.4);
+  background-color: white;
+  padding: 8px 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.days-of-week{
+  width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-column-gap: 2px;
+  grid-row-gap: 2px;
+
+  margin-bottom: 30px;
+
+}
+
+/* This is the CSS for the actual container containing the grid that holds each date in each cell */
+.days-grid {
+  width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, calc(100%/6));
+
+  position: relative;
+  
+  flex-grow: 1; 
+  /* This flex-gorw is part of the trick mentioned above in the .calendar-root */
+}
