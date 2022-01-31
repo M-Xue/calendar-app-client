@@ -128,3 +128,4 @@ const EventDetailsModal: React.FC<Props> = ({ handleClose, day }) => {
 
 export default EventDetailsModal;
 
+
