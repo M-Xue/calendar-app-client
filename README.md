@@ -44,3 +44,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+
+This is the repository for the client side code for this project. The calendar app is an app that allows users to create accounts and make friend groups by adding their friend's accounts. Once a friend group is made, users can save their availabilities, whether they be reccurring or a one time instance, allowing other members of the group to see. This allows for the group to coordinate group events more easily by looking at the group calendar and finding dates where everyone is free.
