@@ -35,7 +35,7 @@
     flex-direction: column;
 }
 
-.groupDetails {
+.groupDetailsEventDetailsModal {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -118,7 +118,7 @@
 
 
 /* Group members' availabilities details styling */
-.groupDetails {
+.groupDetailsEventDetailsModal {
     display: flex;
     flex-direction: column;
 }

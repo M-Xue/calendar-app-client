@@ -102,7 +102,7 @@ const EventDetailsModal: React.FC<Props> = ({ handleClose, day }) => {
                                 </div>
                             </div>
                             
-                            <div className="groupDetails">
+                            <div className="groupDetailsEventDetailsModal">
                                 
                                 <div className="availabilityNavBar">
                                     <div className="going">Going</div>

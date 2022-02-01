@@ -12,13 +12,13 @@
 }
 /* The stretch to bottom of div trick */
 
-.groupSearchbar {
+/* .groupSearchbar {
     height: 44px;
     width: 100%;
     margin-bottom: 30px;
-}
+} */
 
-.groupDetails {
+.groupDetailsSidebar {
     display: flex;
     flex-direction: column;
 
@@ -26,12 +26,12 @@
     /* The stretch to bottom of div trick */
 }
 
-.groupEvents {
+.groupEventsSidebar {
     flex: 1;
     border-bottom: 2px solid #CED0D4;
 }
 
-.groupMembers {
+.groupMembersSidebar {
     flex: 1;
     margin-top: 20px;
 }
@@ -39,4 +39,49 @@
 .sidebarSubheading {
     font-size: 24px;
     font-weight: 600;
+}
+
+
+
+@media (max-width: 1024px) {
+    .groupDetailsSidebar {
+        flex-direction: row;
+    }
+
+    .groupEventsSidebar {
+        border-bottom: none;
+        border-right: 1px solid #CED0D4;
+    }
+
+    .groupMembersSidebar {
+        margin-top: 0;
+        border-left: 1px solid #CED0D4;
+        padding-left: 30px;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 650px) {
+    .groupDetailsSidebar {
+        flex-direction: column;
+    }
+
+    .groupEventsSidebar {
+        border-bottom: 2px solid #CED0D4;
+        border-right: none;
+        padding-bottom: 20px;
+    }
+
+    .groupMembersSidebar {
+        margin-top: 20px;
+        border-left: none;
+        padding-left: 0;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 540px) {
+    .sidebarSubheading {
+        font-size: 22px;
+    }
 }

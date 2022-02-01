@@ -6,6 +6,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    /* This keeps the topbar filling the page no matter if a horizontal scroll is created due to a tiny view port */
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .logo {

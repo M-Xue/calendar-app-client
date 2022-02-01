@@ -204,7 +204,7 @@ const CreateEventModal: React.FC<Props> = ({ handleClose, day }) => {
                                 <button className="registerButton" type="submit">Save</button>
                             </form>
 
-                            <div className="groupDetails">
+                            <div className="groupDetailsCreateEventModal">
                                     
                                 <div className="availabilityNavBar">
                                     <div className="members">Members</div>

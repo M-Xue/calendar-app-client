@@ -65,7 +65,7 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
                 onExitComplete={() => null}
             >
                 {/* { modalOpen && <EventDetailsModal handleClose={close} day={day}/> } */}
-                { modalOpen && <CreateEventModal handleClose={close} day={day}/> }
+                { modalOpen && <EventDetailsModal handleClose={close} day={day}/> }
 
             </AnimatePresence>
 

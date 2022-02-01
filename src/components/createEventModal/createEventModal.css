@@ -36,7 +36,7 @@
     flex-direction: column;
 }
 
-.groupDetails {
+.groupDetailsCreateEventModal {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -173,7 +173,7 @@ textarea[type=text]:focus {
 
 
 /* Group members' availabilities details styling */
-.groupDetails {
+.groupDetailsCreateEventModal {
     margin-top: 72.5px;
     display: flex;
     flex-direction: column;

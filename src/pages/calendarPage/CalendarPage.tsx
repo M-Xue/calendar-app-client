@@ -17,7 +17,7 @@ export default function CalendarPage() {
 
                 <div className="mainContent">
                     <div className="groupName">
-                        <div>Group Name</div>
+                        <div className='largeFont'>Group Name</div>
                     </div>
 
                     <div className="calendarContent">
