@@ -157,7 +157,7 @@ export default Calendar;
 
 
 
-{/* <div className="days-grid">
+/* <div className="days-grid">
 	{calendarGridDayObjects.map((day) => (
 		<div
 			key={day.dateString}
@@ -173,7 +173,7 @@ export default Calendar;
 			</div>
 		</div>
 	))}
-</div> */}
+</div> */
 
 
 
@@ -217,7 +217,7 @@ export default Calendar;
 
 
 
-{/* <motion.button
+/* <motion.button
 	className='modalButton'
 	onClick={ () => (
 		modalOpen ? close(): open()
@@ -233,6 +233,6 @@ export default Calendar;
 	onExitComplete={() => null}
 >
 	{ modalOpen && <EventDetailsModal modalOpen={modalOpen} handleClose={close} /> }
-</AnimatePresence> */}
+</AnimatePresence> */
 
 //////////////////////////////////////////////////////////////////////////////////

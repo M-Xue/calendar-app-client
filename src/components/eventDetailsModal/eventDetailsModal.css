@@ -9,7 +9,13 @@
     flex-direction: column;
     align-items: center;
 
-    padding: 3.25% 4%; 
+    padding-left: clamp(20px, 3.25%, 70px);
+    padding-right: clamp(20px, 3.25%, 70px);
+    padding-top: clamp(20px, 2%, 65px);
+    padding-bottom: clamp(20px, 2%, 65px);
+
+    
+
     /* Theres an issue with the padding when you make the window super long */
     
     box-sizing: border-box;
@@ -148,5 +154,58 @@
     justify-content: center;
 }
 
+
+
+
+
+@media (max-width: 1024px) {
+
+    .modal {
+        width: 90%;
+        height: 80%;
+        overflow-y: auto;
+    }
+
+    .modalFlexboxContainer {
+        flex-direction: column;
+    }
+
+    .availabilityNavBar {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 1280px) {
+
+    .modalFlexboxContainer {
+        column-gap: 10px;
+    }
+
+    .eventDetails {
+        flex: 1.25;
+    }
+}
+
+
+@media (max-width: 540px) {
+
+    .eventTitle {
+        margin: 10px 0;
+    }
+
+    .dateAndTimeModalInfo {
+        padding: 10px 0;
+        margin-bottom: 10px;
+    }
+
+    .hostInfo, .address, .descriptionInfo {
+        margin-bottom: 10px;
+    }
+
+    .modal {
+        position: relative;
+        bottom: 50px;
+    }
+}
 
 

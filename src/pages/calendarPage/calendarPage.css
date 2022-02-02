@@ -70,7 +70,9 @@
     .contentContainer {
         display: initial;
         /* By getting rid of display: flex, the sidebar will now go under the mainContent div because they're both div's which are block elements. */
+        
     }
+    
 
     .mainContent {
         padding-top: 55px;

@@ -69,7 +69,11 @@ const CreateEventModal: React.FC<Props> = ({ handleClose, day }) => {
         description,
     }
     
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+        // https://www.youtube.com/watch?v=BYsQE3Nh9IE 
+        // This tutorial is great for finding out how to get the correct type for a TypeScript typing.
+
         e.preventDefault(); // This stops the page from refreshing when you submit, which is the buttons default behaviour
         const newEvent = {
             eventTitle,
@@ -103,12 +107,6 @@ const CreateEventModal: React.FC<Props> = ({ handleClose, day }) => {
                         
                         <i className="fas fa-times closeModalCrossButton" onClick={handleClose}></i>
                         
-                        
-
-
-
-
-
 
                         <div className="modalFlexboxContainer">
                         
@@ -179,7 +177,7 @@ const CreateEventModal: React.FC<Props> = ({ handleClose, day }) => {
 
                                     <textarea 
                                         placeholder='Add description' 
-                                        type='text' 
+                                        // type='text' 
                                         className='descriptionInput'
 
                                         onChange={e=>setDescription(e.target.value)} 

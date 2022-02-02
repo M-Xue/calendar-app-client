@@ -22,6 +22,9 @@
 	border-bottom: 2px solid #CED0D4;
 
 	font-weight: 600;
+
+
+    outline:none;
 }
 
 .month-option {
@@ -49,6 +52,8 @@
 	border-bottom: 2px solid #CED0D4;
 
 	font-weight: 600;
+
+	outline:none;
 }
 
 
@@ -173,7 +178,7 @@
 		padding: 0;
 	}
 	.calendar-root {
-		padding: 5px;
+		padding: 20px;
 	}
 	.fas {
 		font-size: 22px;
@@ -185,5 +190,11 @@
 
 	.day-of-week-header-cell {
 		font-size: 14px;
+	}
+}
+
+@media (max-width: 350px) {
+	.calendar-root {
+		padding: 10px;
 	}
 }
