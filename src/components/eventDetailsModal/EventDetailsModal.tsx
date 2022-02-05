@@ -29,7 +29,8 @@ const dropIn = {
 
 interface Props {
     handleClose: () => void,
-    day: day
+    day: day,
+    eventDetails: eventDetails
 }
 
 // Need to create a second interface for an object.
@@ -41,8 +42,16 @@ interface day {
     isPreviousMonth?: boolean
 }
 
+interface eventDetails {
+    title: string,
+    time: string,
+    host: string,
+    location: string,
+    description: string
+}
 
-const EventDetailsModal: React.FC<Props> = ({ handleClose, day }) => {
+
+const EventDetailsModal: React.FC<Props> = ({ handleClose, day, eventDetails }) => {
 
 
     const testEventDetailsObject ={
@@ -72,7 +81,7 @@ const EventDetailsModal: React.FC<Props> = ({ handleClose, day }) => {
                         <i className="fas fa-times closeModalCrossButton" onClick={handleClose}></i>
                         
                         
-                        <h1 className='eventTitle'>{testEventDetailsObject.eventName}</h1>
+                        <h1 className='eventTitle'>{eventDetails.title}</h1>
 
                         <div className="modalFlexboxContainer">
 
@@ -84,21 +93,21 @@ const EventDetailsModal: React.FC<Props> = ({ handleClose, day }) => {
                                     </div>
                                     <div className="time">
                                         <i className="far fa-clock"></i>
-                                        2:00PM
+                                        {eventDetails.time}
                                     </div>
                                 </div>
                                 <div className="hostInfo">
                                     <i className="far fa-user"></i>
-                                    Hosted by&nbsp; <span className='hostUsername'> {testEventDetailsObject.host}</span> 
+                                    Hosted by&nbsp; <span className='hostUsername'> {eventDetails.host}</span> 
                                     {/* need that &nbsp; because the span wont have a normal space character before it otherwise. */}
                                 </div>
                                 <div className="address">
                                     <i className="fas fa-map-marker-alt"></i>
-                                    {testEventDetailsObject.address}
+                                    {eventDetails.location}
                                 </div>
                                 <div className="descriptionInfo">
                                     <i className="fas fa-align-left fa-flip-vertical"></i>
-                                    {testEventDetailsObject.description}
+                                    {eventDetails.description}
                                 </div>
                             </div>
                             

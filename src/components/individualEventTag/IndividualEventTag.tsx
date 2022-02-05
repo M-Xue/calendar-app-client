@@ -9,7 +9,8 @@ import { useState } from 'react';
 
 
 interface Props {
-    day: day
+    day: day,
+    eventDetails: eventDetails
 }
 
 // Need to create a second interface for an object.
@@ -21,14 +22,17 @@ interface day {
     isPreviousMonth?: boolean
 }
 
-const IndividualEventTag: React.FC<Props> = ({ day }) => { 
+interface eventDetails {
+    title: string,
+    time: string,
+    host: string,
+    location: string,
+    description: string
+}
+
+const IndividualEventTag: React.FC<Props> = ({ day, eventDetails }) => { 
     
-    const eventDetails = {
-        eventName: "Movie Eventffffff",
-        date: "10th Feb",
-        host: "Max",
-        location: "123 Apple Street Petersham 2000"
-    }
+    
     
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -44,10 +48,8 @@ const IndividualEventTag: React.FC<Props> = ({ day }) => {
                 )}
             >
 
-                
-
                 <div className="eventTagTitle">
-                    {eventDetails.eventName}
+                    {eventDetails.title}
                 </div>
 
             </motion.div>
@@ -59,7 +61,7 @@ const IndividualEventTag: React.FC<Props> = ({ day }) => {
                 onExitComplete={() => null}
             >
                 
-                { modalOpen && <EventDetailsModal handleClose={close} day={day}/> }
+                { modalOpen && <EventDetailsModal handleClose={close} day={day} eventDetails={eventDetails}/> }
 
             </AnimatePresence>
 

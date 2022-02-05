@@ -12,13 +12,6 @@ import {
 import IndividualEventTag from '../individualEventTag/IndividualEventTag';
 
 
-
-
-
-
-
-
-
 interface Props {
     day: day
 }
@@ -34,13 +27,18 @@ interface day {
 
 const IndividualGridDay: React.FC<Props> = ({ day }) => {
 
+    // TODO FETCH ALL EVENTS FOR THE DAY HERE
+
+    const eventDetailsExample = {
+        title: "Movie Event (Sing 2)",
+        time: "3 PM",
+        host: "Max",
+        location: "123 Apple Street Petersham 2000",
+        description: "Gonna go watch Sing 2"
+    }
 
     return (
         <>
-
-
-
-
 
             <div
                 key={day.dateString}
@@ -50,55 +48,27 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
                     "weekend-day": isWeekendDay(day.dateString),
                     "current-month": day.isCurrentMonth
                 })}
-
-                
             >
-
-
 
                 <div className="day-grid-item-header">
                     {day.dayOfMonth}
-
-                    
-
-
                 </div>
-                <IndividualEventTag day={day}/>
-
+                <IndividualEventTag day={day} eventDetails={eventDetailsExample}/>
 
             </div>
 
+        </>
+    )
+}
+
+
+export default IndividualGridDay;
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* <motion.div
+{/* <motion.div
                 key={day.dateString}
                 className={classNames("day-grid-item-container", "modalButton",
                 
@@ -137,12 +107,17 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
 
             </AnimatePresence> */}
 
-        </>
-    )
-}
 
 
-export default IndividualGridDay;
+
+
+
+
+
+
+
+
+
 
 
 
