@@ -1,17 +1,19 @@
 .day-grid-item-container {
   position: relative;
   background-color: white;
-  border-radius: 8px;
+  /* border-radius: 8px; */
+
+  outline: rgba(0, 0, 0, 0.2) 1px solid;
+
+  width: 100%;
+
+  /* /////////////////////////////////////////////// IMPORTANT: VERY COOL /////////////////////////////////////////////// */
+  /* In flexbox, when a child of the flex container has contents larger than the flexbox container or its designated flex ration, the child content will force the flexbox container/designated portion (given by flex: ) to be its min with, causing the box to no longer be responsive. */
+  /* To fix this, just use overflow: hidden; */
+  overflow: hidden;
 }
 
-.day-grid-item-container:hover {
-  background-color: #1295f2c4;
-  transition: 0.25s;
 
-  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-  z-index: 80; */
-  /* This box shadow only works because the grid cell is moved forward along the z axis using the z-index */
-}
 
 .day-grid-item-container:not(.current-month) .day-grid-item-header {
   color: rgba(0, 0, 0, 0.4);

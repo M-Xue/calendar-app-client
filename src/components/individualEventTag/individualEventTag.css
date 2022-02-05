@@ -1,0 +1,18 @@
+.eventTagContainer {
+    background-color: #1295f2;
+    border-radius: 3px;
+    cursor: pointer;
+
+    width: calc(100%-10px);
+    margin: 5px;
+}
+
+.eventTagTitle {
+    color: #fff;
+    margin: 0 5px;
+    margin-left: 5px;
+    
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}

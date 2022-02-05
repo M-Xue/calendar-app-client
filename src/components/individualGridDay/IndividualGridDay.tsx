@@ -1,18 +1,21 @@
 import './individualGridDay.css';
 
-
 import { motion, AnimatePresence } from 'framer-motion';
-//import { useState } from 'react';
 import EventDetailsModal from '../../components/eventDetailsModal/EventDetailsModal';
 import CreateEventModal from '../createEventModal/CreateEventModal';
 import { useState } from 'react';
-
-
 
 import classNames from "classnames";
 import {
 	isWeekendDay,
 } from "../calendar/helpers";
+import IndividualEventTag from '../individualEventTag/IndividualEventTag';
+
+
+
+
+
+
 
 
 
@@ -29,17 +32,73 @@ interface day {
     isPreviousMonth?: boolean
 }
 
-
 const IndividualGridDay: React.FC<Props> = ({ day }) => {
 
-    const [modalOpen, setModalOpen] = useState(false);
-    const close = () => setModalOpen(false);
-    const open = () => setModalOpen(true);
 
     return (
         <>
 
-            <motion.div
+
+
+
+
+            <div
+                key={day.dateString}
+                className={classNames("day-grid-item-container", "modalButton",
+                
+                {
+                    "weekend-day": isWeekendDay(day.dateString),
+                    "current-month": day.isCurrentMonth
+                })}
+
+                
+            >
+
+
+
+                <div className="day-grid-item-header">
+                    {day.dayOfMonth}
+
+                    
+
+
+                </div>
+                <IndividualEventTag day={day}/>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {/* <motion.div
                 key={day.dateString}
                 className={classNames("day-grid-item-container", "modalButton",
                 
@@ -53,21 +112,30 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
                 )}
             >
 
+
+
                 <div className="day-grid-item-header">
                     {day.dayOfMonth}
+
+                    
+
+
                 </div>
                 
+
+
             </motion.div>
             
+
             <AnimatePresence
                 initial={false}
                 exitBeforeEnter={true}
                 onExitComplete={() => null}
             >
-                {/* { modalOpen && <EventDetailsModal handleClose={close} day={day}/> } */}
+                
                 { modalOpen && <EventDetailsModal handleClose={close} day={day}/> }
 
-            </AnimatePresence>
+            </AnimatePresence> */}
 
         </>
     )
@@ -82,7 +150,7 @@ export default IndividualGridDay;
 
 
 
-
+{/* { modalOpen && <EventDetailsModal handleClose={close} day={day}/> } */}
 
 
 

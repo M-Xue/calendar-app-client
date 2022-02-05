@@ -82,13 +82,13 @@
     flex: 1;
 }
 .date > .far {
-    margin-right: 20px;
+    margin-right: 40px;
 }
 .time {
     flex: 1;
 }
 .time > .far {
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 .hostInfo {
@@ -97,7 +97,7 @@
     align-items: start;
 }
 .hostInfo > .far {
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 .address {
@@ -106,7 +106,7 @@
     align-items: start;
 }
 .address > .fas {
-    margin-right: 20px;
+    margin-right: 40px;
     font-size: 20px;
 }
 
@@ -116,7 +116,7 @@
     align-items: start;
 }
 .descriptionInfo > .fas {
-    margin-right: 20px;
+    margin-right: 40px;
     font-size: 18px;
     position: relative;
     top: 3px;
@@ -183,6 +183,10 @@
 
     .eventDetails {
         flex: 1.25;
+    }
+
+    .date > .far, .time > .far, .hostInfo > .far, .address > .fas, .descriptionInfo > .fas {
+        margin-right: 20px;
     }
 }
 

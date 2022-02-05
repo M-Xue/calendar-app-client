@@ -13,16 +13,31 @@ export default function CalendarPage() {
 
             <Topbar/>
 
-            <div className="contentContainer">
+			
 
+
+
+
+
+
+            <div className="contentContainer">
+                
                 <div className="mainContent">
+
+                    
                     <div className="groupName">
                         <div className='largeFont'>Group Name</div>
                     </div>
 
+
                     <div className="calendarContent">
+
+
+
                         <Calendar/>
-                    </div>
+                    </div> 
+
+
                 </div>
 
                 <div className="sidebarContent">
@@ -30,6 +45,11 @@ export default function CalendarPage() {
                 </div>
                     
             </div>
+        
+        
+        
+        
+        
         </div>
     )
 }

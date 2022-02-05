@@ -126,6 +126,10 @@ const Calendar: React.FC = () => {
           			</div>
         		))}
       		</div>
+			
+
+
+
 
 			{/* The actual grid of the calendar */}
       		<div className="days-grid">

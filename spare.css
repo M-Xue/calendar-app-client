@@ -1,0 +1,119 @@
+
+
+/* This div is so that the background colour stays in the view port event if the screen is extended due to viewport resizing issues */
+.backgroundColour {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #F0F2F5;
+    z-index: -999;
+}
+
+
+.calendarPage {
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.contentContainer {
+    display: flex;
+    height: 100%;
+
+
+}
+
+.mainContent {
+    flex: 9;
+    margin: 30px;
+
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+}
+
+
+
+.sidebarContent {
+    flex: 3.5;
+    margin: 30px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+
+
+
+.flexText {
+    display: flex;
+}
+
+/* .testText {
+
+
+    
+} */
+
+
+
+
+
+
+
+
+
+
+
+/* 
+.groupName {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+.largeFont {
+    font-weight: 600;
+    font-size: 30px;
+} */
+
+
+
+@media (max-width: 1024px) {
+    .contentContainer {
+        display: initial;
+        /* By getting rid of display: flex, the sidebar will now go under the mainContent div because they're both div's which are block elements. */
+        
+    }
+    
+
+    .mainContent {
+        padding-top: 55px;
+        box-sizing: border-box;
+        height: calc(100% - 55px);
+        /* Making space for the topbar */
+    }
+}
+
+@media (max-width: 540px) {
+    .largeFont {
+        font-size: 26px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
