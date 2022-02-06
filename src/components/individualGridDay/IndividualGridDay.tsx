@@ -39,7 +39,7 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
 
     return (
         <>
-
+            
             <div
                 key={day.dateString}
                 className={classNames("day-grid-item-container", "modalButton",

@@ -14,12 +14,6 @@ export default function CalendarPage() {
             <Topbar/>
 
 			
-
-
-
-
-
-
             <div className="contentContainer">
                 
                 <div className="mainContent">
