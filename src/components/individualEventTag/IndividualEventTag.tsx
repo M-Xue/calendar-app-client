@@ -40,7 +40,7 @@ const IndividualEventTag: React.FC<Props> = ({ day, eventDetails }) => {
     const open = () => setModalOpen(true);
     
     return (
-        <>
+        <div>
             <motion.div 
                 className="eventTagContainer"
                 onClick={ () => (
@@ -74,7 +74,7 @@ const IndividualEventTag: React.FC<Props> = ({ day, eventDetails }) => {
 
 
             
-        </>
+        </div>
     )
 }
 
