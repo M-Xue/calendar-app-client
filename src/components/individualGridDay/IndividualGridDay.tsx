@@ -102,15 +102,15 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
 
     const handleResize = () => {
         // console.log("handle resize");
-        if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-            const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
+        if (dayGridContainer.current !== null /* && eventTagContainer.current !== null */ && dayGridHeader.current !== null) {
+            // const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
+            const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (24 + 5));
 
 
             // console.log(numTagsInRemainingSpace !== numFittableTags);
             // console.log(numTagsInRemainingSpace);
             // console.log(numFittableTags); 
             
-            // THE BUG IS HERE. numFittableTags NEVER RETURNS THE CORRECT STATE IN THE USESTATE HOOK. IT ALAWYS STAYS AT ITS INITIAL VALUE. HENCE THING CONDTION IS BASICALLY PERMA RUNNIG
             if (numTagsInRemainingSpace !== numFittableTags) {
                 // console.log("setDimensions");
                 setDimensions({
@@ -121,7 +121,7 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
             } 
         }        
     }
-    useEffect(() => {
+    useLayoutEffect(() => {
         window.addEventListener('resize', handleResize)
         return () => { window.removeEventListener('resize', handleResize) }
     }); 
@@ -129,13 +129,15 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
 
     useLayoutEffect(() => {
         if (numFittableTags === -1) {
-            if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-                const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
+            if (dayGridContainer.current !== null /* && eventTagContainer.current !== null */ && dayGridHeader.current !== null) {
+                // const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
+                const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (24 + 5));
                 setNumFittableTags(numTagsInRemainingSpace);
             }
         } else {
-            if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-                const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
+            if (dayGridContainer.current !== null /* && eventTagContainer.current !== null */ && dayGridHeader.current !== null) {
+                // const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
+                const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (24 + 5));
                 // console.log('Run useEffect');
                 // console.log(numTagsInRemainingSpace !== numFittableTags);
                 // console.log(numTagsInRemainingSpace);
@@ -154,9 +156,42 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
     // Now that you update numFittableTags every time it needs to change, just change what you render using that state bacause the whole thing needs to rerender every time its updated now.
 
 
+    const calculateRenderedTagsArray = () => {
+        const renderedTags = eventDetailsExampleArray;
+        const numEvents = renderedTags.length;
 
+        if (numEvents <= numFittableTags) {
+            return renderedTags;
+        }
+        // console.log('yeet');
+        // console.log(numEvents);
+        // console.log(numFittableTags);
+        const numRemovedElements = numEvents - numFittableTags + 1;
 
+        // console.log(renderedTags.slice(0, -numRemovedElements));
 
+        return renderedTags.slice(0, -numRemovedElements);
+
+        // return numRemovedElements;
+
+        // return renderedTags.slice(numFittableTags - 1);
+    }
+    console.log(calculateRenderedTagsArray());
+
+    // Maybe use useLayoutEffect instead of this funtion
+
+    // const [renderedTags, setRenderedTags] = useState([]);
+    // useLayoutEffect(() => {
+    //     const renderedTagsArray = eventDetailsExampleArray;
+    //     const numEvents = renderedTagsArray.length;
+
+    //     if (numEvents <= numFittableTags) {
+    //         setRenderedTags(eventDetailsExampleArray);
+    //     }
+    //     // const x = renderedTagsArray.slice(numFittableTags - 1)
+    //     // setRenderedTags(x);
+    // }, [numFittableTags]);
+    
 
 
 
@@ -205,16 +240,52 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
                     {day.dayOfMonth} | {numFittableTags}
                 </div>
 
-                <div 
+                
+                {calculateRenderedTagsArray().map((eventDetails, index) => (
+                    <div 
+                        // className="indivdualEventTagContainer"
+                        // ref={eventTagContainer}
+                        key={index}
+                    >
+                        <IndividualEventTag day={day} eventDetails={eventDetails}/>
+                    </div>
+                ))}
+
+                
+                {/* <div 
+                >
+                    <IndividualEventTag day={day} eventDetails={eventDetailsExample}/>
+                </div> */}
+
+
+
+                {/* <div 
                     className="indivdualEventTagContainer"
                     ref={eventTagContainer}
                 >
                     <IndividualEventTag day={day} eventDetails={eventDetailsExample}/>
-                </div>
+                </div> */}
+
+                {/* <div 
+                    // className="indivdualEventTagContainer"
+                    // ref={eventTagContainer}
+                >
+                    <IndividualEventTag day={day} eventDetails={eventDetailsExample}/>
+                </div> */}
                 
                 
                 
-                
+                {/* {calculateRenderedTagsArray().map((eventDetails) => (
+					<IndividualGridDay day={day} eventDetails={eventDetails}/>/>
+				))} */}
+
+                {/* {eventDetailsExampleArray.map((eventDetails) => (
+                    <IndividualEventTag day={day} eventDetails={eventDetails}/>
+                ))} */}
+
+                {/* {calendarGridDayObjects.map((day) => (
+                    <IndividualGridDay day={day}/>
+                ))}  */}
                 
                 
             </div>
@@ -230,603 +301,3 @@ export default IndividualGridDay;
 
 
 
-/////////////////////////// good stuff
-
-    // const [dimensions, setDimensions] = useState({
-    //     height: window.innerHeight,
-    //     width: window.innerWidth
-    // })
-    
-    // const handleResize = () => {
-    //     setDimensions({
-    //         height: window.innerHeight,
-    //         width: window.innerWidth
-    //     });
-    // }
-
-    // useEffect(() => {
-    //     window.addEventListener('resize', handleResize)
-    //     return () => { window.removeEventListener('resize', handleResize) }
-    // },[]); // Only need this to run once at the intial render of the component
-
-
-
-    // const [numFittableTags, setNumFittableTags] = useState(-1);
-    // useLayoutEffect(() => {
-    //     if (numFittableTags === -1) {
-    //         if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-    //             const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-    //             setNumFittableTags(numTagsInRemainingSpace);
-    //         }
-    //     } else {
-
-            
-    //         if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-    //             const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-    //             if (numTagsInRemainingSpace !== numFittableTags) {
-    //                 setNumFittableTags(numTagsInRemainingSpace);
-    //                 console.log('setNumFittableTags');
-    //             } 
-    //         }
-    //     }
-    // }, [numFittableTags, dimensions]);
-
-
-
-
-
-
-
-//////////////////////////////
-
-
-
-// Third attempt at optimising
-// const [dimensions, setDimensions] = useState({
-//     height: window.innerHeight,
-//     width: window.innerWidth
-// })
-// const [numFittableTags, setNumFittableTags] = useState(-1);
-
-// const handleResize = () => {
-
-//     if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-
-
-//         const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-//         if (numTagsInRemainingSpace !== numFittableTags) {
-//             setDimensions({
-//                 height: window.innerHeight,
-//                 width: window.innerWidth
-//             });
-//             console.log("setDimensions");
-//         } 
-//     }        
-// }
-
-// useEffect(() => {
-//     window.addEventListener('resize', handleResize)
-//     return () => { window.removeEventListener('resize', handleResize) }
-// },[]); // Only need this to run once at the intial render of the component
-
-
-// useLayoutEffect(() => {
-//     if (numFittableTags === -1) {
-//         if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-//             const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-//             setNumFittableTags(numTagsInRemainingSpace);
-//         }
-//     } else {
-
-        
-//         if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-//             const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-//             if (numTagsInRemainingSpace !== numFittableTags) {
-//                 setNumFittableTags(numTagsInRemainingSpace);
-//                 console.log('setNumFittableTags');
-//             } 
-//         }
-//     }
-// }, [numFittableTags, dimensions]);
-
-
-
-
-
-
-
-
-
-
-/// second attempt at opimising
-// // useLayoutEffect(() => {
-//     //     console.log(dayGridContainer);
-//     //     if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-//     //         console.log(dayGridContainer.current.clientHeight);
-//     //         console.log(dayGridHeader.current.clientHeight);
-//     //         console.log(eventTagContainer.current.clientHeight);
-
-//     //         const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-//     //         setNumFittableTags(numTagsInRemainingSpace);
-//     //         console.log(numTagsInRemainingSpace);
-//     //     }
-
-//     // }); 
-    
-//     // Put soomething here so this useEffect only runs when the window is resized
-
-    
-
-
-//     // Making the component rerender on window resize
-//     // This lets us recalculate how many event tags fit in the day grid container and adjust accordingly.
-//     // Code copied from: https://dirask.com/posts/React-rerender-component-on-browser-resize-jEL0Rp
-//     const [dimensions, setDimensions] = useState({
-//         height: window.innerHeight,
-//         width: window.innerWidth
-//     })
-
-//     const handleResize = () => {
-
-//         //console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
-
-
-//         // ONLY SET THIS WHEN THE CURR NUMTAGS != the state numtags
-//         // setDimensions({
-//         //     height: window.innerHeight,
-//         //     width: window.innerWidth
-//         // });
-
-//         if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-//             const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-//             if (numTagsInRemainingSpace !== numFittableTags) {
-//                 setDimensions({
-//                     height: window.innerHeight,
-//                     width: window.innerWidth
-//                 });
-
-//                 console.log("setDimensions");
-//             } 
-//         }
-        
-//     }
-//     useEffect(() => {
-//         window.addEventListener('resize', handleResize)
-//         return () => { window.removeEventListener('resize', handleResize) }
-//     },[]); // Only need this to run once at the intial render of the component
-
-
-
-//     const [numFittableTags, setNumFittableTags] = useState(-1);
-//     useLayoutEffect(() => {
-        
-//         if (numFittableTags === -1) {
-//             if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-//                 const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-//                 setNumFittableTags(numTagsInRemainingSpace);
-
-//                 console.log("first render");
-//                 console.log(numFittableTags); // Here the value is still -1 because the state does not update till the rerender
-//             }
-//         } else {
-//             //console.log(numFittableTags);
-//             //console.log('useLayoutEffect running after first render');
-//             // console.log('second render');
-            
-//             if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-//                 const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-                
-
-//                 if (numTagsInRemainingSpace !== numFittableTags) {
-//                     setNumFittableTags(numTagsInRemainingSpace);
-//                     console.log('setNumFittableTags');
-//                 } else if (numTagsInRemainingSpace === numFittableTags) {
-//                     //console.log("no change")
-//                 }
-
-
-//             }
-
-//         }
-
-//     }, [numFittableTags, dimensions]);
-    
-
-
-//// first attepmt at optimising
-
-
-// const [dimensions, setDimensions] = useState({
-//     height: window.innerHeight,
-//     width: window.innerWidth
-// })
-
-// const handleResize = () => {
-
-//     console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
-
-//     setDimensions({
-//         height: window.innerHeight,
-//         width: window.innerWidth
-//     });
-
-//     // if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-
-//     //     const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-        
-//     //     console.log(numTagsInRemainingSpace);
-
-//     //     // console.log('test');
-
-//     //     if (numFittableTags == -1) {
-//     //         setNumFittableTags(numTagsInRemainingSpace);
-//     //     }
-
-//     //     if (numFittableTags !== numTagsInRemainingSpace) {
-//     //         console.log('CHANGE!!');
-//     //         console.log(numFittableTags);
-//     //         console.log(numTagsInRemainingSpace);
-//     //         setNumFittableTags(numTagsInRemainingSpace);
-//     //     }
-
-
-
-//     //     // const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-
-
-//     //     // if (numFittableTags !== numTagsInRemainingSpace) {
-//     //     //     console.log('CHANGE!!');
-//     //     // }
-//     // }
-    
-// }
-// useEffect(() => {
-//     window.addEventListener('resize', handleResize)
-//     return () => { window.removeEventListener('resize', handleResize) }
-// },[]); // Only need this to run once at the intial render of the component
-
-
-
-
-
-
-
-
-
-
-
-////////////////////////////// Unoptimised version
-
-
-// // Here, we are getting the height of the grid day every time the grid day component is rendered. This will allow us to calculate how many event tags can fit in the grid cell. If we have too many events, we will collapse them into a "X more events" button.
-// const dayGridContainer = useRef<HTMLDivElement | null>(null); 
-// const dayGridHeader = useRef<HTMLDivElement | null>(null); 
-// const eventTagContainer = useRef<HTMLDivElement | null>(null); 
-
-// useLayoutEffect(() => {
-//     console.log(dayGridContainer);
-//     if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-//         console.log(dayGridContainer.current.clientHeight);
-//         console.log(dayGridHeader.current.clientHeight);
-//         console.log(eventTagContainer.current.clientHeight);
-
-//         const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-//         setNumFittableTags(numTagsInRemainingSpace);
-//         console.log(numTagsInRemainingSpace);
-//     }
-
-// }); 
-
-// // Put soomething here so this useEffect only runs when the window is resized
-
-
-
-
-// // Making the component rerender on window resize
-// // This lets us recalculate how many event tags fit in the day grid container and adjust accordingly.
-// // Code copied from: https://dirask.com/posts/React-rerender-component-on-browser-resize-jEL0Rp
-// const [dimensions, setDimensions] = useState({
-//     height: window.innerHeight,
-//     width: window.innerWidth
-// })
-
-// const handleResize = () => {
-
-//     console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
-
-//     setDimensions({
-//         height: window.innerHeight,
-//         width: window.innerWidth
-//     });
-
-
-//     // if (dayGridContainer.current !== null && eventTagContainer.current !== null && dayGridHeader.current !== null) {
-
-        
-//     //     console.log('test');
-
-
-
-
-//     //     // const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-
-
-//     //     // if (numFittableTags !== numTagsInRemainingSpace) {
-//     //     //     console.log('CHANGE!!');
-//     //     // }
-//     // }
-// }
-// useEffect(() => {
-//     window.addEventListener('resize', handleResize)
-//     return () => { window.removeEventListener('resize', handleResize) }
-// },[]); // Only need this to run once at the intial render of the component
-
-
-
-
-////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* <motion.div
-                key={day.dateString}
-                className={classNames("day-grid-item-container", "modalButton",
-                
-                {
-                    "weekend-day": isWeekendDay(day.dateString),
-                    "current-month": day.isCurrentMonth
-                })}
-
-                onClick={ () => (
-                    modalOpen ? close(): open()
-                )}
-            >
-
-
-
-                <div className="day-grid-item-header">
-                    {day.dayOfMonth}
-
-                    
-
-
-                </div>
-                
-
-
-            </motion.div>
-            
-
-            <AnimatePresence
-                initial={false}
-                exitBeforeEnter={true}
-                onExitComplete={() => null}
-            >
-                
-                { modalOpen && <EventDetailsModal handleClose={close} day={day}/> }
-
-            </AnimatePresence> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* { modalOpen && <EventDetailsModal handleClose={close} day={day}/> } */}
-
-
-
-
-
-            // Original??
-            {/* <div
-                key={day.dateString}
-                className={classNames("day-grid-item-container", {
-                    "weekend-day": isWeekendDay(day.dateString),
-                    "current-month": day.isCurrentMonth
-                })}
-            >
-
-                <motion.div
-                    className='modalButton day-content-wrapper'
-                    onClick={ () => (
-                        modalOpen ? close(): open()
-                    )}
-                >
-                    <div className="day-grid-item-header">
-                        {day.dayOfMonth}
-                    </div>
-                </motion.div>
-
-
-                <AnimatePresence
-                    initial={false}
-                    exitBeforeEnter={true}
-                    onExitComplete={() => null}
-                >
-                    { modalOpen && <EventDetailsModal handleClose={close} day={day}/> }
-                </AnimatePresence>
-
-            </div> */}
-
-
-// New
-{/* <motion.div
-                key={day.dateString}
-                className={classNames("day-grid-item-container", "modalButton",
-                
-                {
-                    "weekend-day": isWeekendDay(day.dateString),
-                    "current-month": day.isCurrentMonth
-                })}
-
-                onClick={ () => (
-                    modalOpen ? close(): open()
-                )}
-            >
-
-                <div className="day-grid-item-header">
-                    {day.dayOfMonth}
-                </div>
-                
-            </motion.div>
-            
-            <AnimatePresence
-                initial={false}
-                exitBeforeEnter={true}
-                onExitComplete={() => null}
-            >
-                { modalOpen && <EventDetailsModal handleClose={close} day={day}/> }
-            </AnimatePresence> */}
-
-
-
-
-
-
-            // Version 2 new that we dont need
-{/* <motion.div
-                key={day.dateString}
-                className={classNames("day-grid-item-container", {
-                    "weekend-day": isWeekendDay(day.dateString),
-                    "current-month": day.isCurrentMonth
-                })}
-                
-                onClick={ () => (
-                    modalOpen ? close(): open()
-                )}
-            >
-
-                <div
-                    className='modalButton day-content-wrapper'
-                >
-                    <div className="day-grid-item-header">
-                        {day.dayOfMonth}
-                    </div>
-                </div>
-            </motion.div>
-
-            <AnimatePresence
-                initial={false}
-                exitBeforeEnter={true}
-                onExitComplete={() => null}
-            >
-                { modalOpen && <EventDetailsModal handleClose={close} day={day}/> }
-            </AnimatePresence> */}
-
-
-
-{/* <div className="day-content-wrapper">
-    <div className="day-grid-item-header">
-        {day.dayOfMonth}
-
-        <motion.button
-            className='modalButton'
-            onClick={ () => (
-                modalOpen ? close(): open()
-            )}
-        >
-            Launch Modal
-        </motion.button>
-
-
-        <AnimatePresence
-            initial={false}
-            exitBeforeEnter={true}
-            onExitComplete={() => null}
-        >
-            { modalOpen && <EventDetailsModal handleClose={close} /> }
-        </AnimatePresence>
-
-    </div>
-</div> */}
-
-
-
-            // <motion.button
-            //     className='modalButton'
-            //     onClick={ () => (
-            //         modalOpen ? close(): open()
-            //     )}
-            // >
-            //     Launch Modal
-            // </motion.button>
-
-
-
-
-
-            // <AnimatePresence
-            //     initial={false}
-            //     exitBeforeEnter={true}
-            //     onExitComplete={() => null}
-            // >
-            //     { modalOpen && <EventDetailsModal modalOpen={modalOpen} handleClose={close} /> }
-            // </AnimatePresence>
-
-
-
-
-            // <div
-            //     key={day.dateString}
-            //     className={classNames("day-grid-item-container", {
-            //         "weekend-day": isWeekendDay(day.dateString),
-            //         "current-month": day.isCurrentMonth
-            //     })}
-            // >
-            //     <div className="day-content-wrapper">
-            //         <div className="day-grid-item-header">
-            //             {day.dayOfMonth}
-            //         </div>
-            //     </div>
-            // </div>
-
-
-
-            // <AnimatePresence
-            //     initial={false}
-            //     exitBeforeEnter={true}
-            //     onExitComplete={() => null}
-            // >
-            //     { modalOpen && <EventDetailsModal modalOpen={modalOpen} handleClose={close} /> }
-            // </AnimatePresence>
-
-            

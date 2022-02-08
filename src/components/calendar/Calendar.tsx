@@ -137,11 +137,11 @@ const Calendar: React.FC = () => {
 
 				
 				{/* To fix this bug edit situation, just delete the line below and uncomment that part below that */}
-			  	{/* <IndividualGridDay day={calendarGridDayObjects[0]}/> */}
+			  	<IndividualGridDay day={calendarGridDayObjects[0]}/>
 
-				{calendarGridDayObjects.map((day) => (
+				{/* {calendarGridDayObjects.map((day) => (
 					<IndividualGridDay day={day}/>
-				))} 
+				))}  */}
 
       		</div>
 
