@@ -10,7 +10,7 @@ import {
 	getYearDropdownOptions
 } from "./helpers";
 
-import { ChangeEvent, useState } from 'react'; // Need ChangeEvent for defining the event type in TypeScript with the evt parameter for the handleMonthSelect and handleYearSelect event handler functions
+import { ChangeEvent, useRef, useState } from 'react'; // Need ChangeEvent for defining the event type in TypeScript with the evt parameter for the handleMonthSelect and handleYearSelect event handler functions
 import './calendar.css';
 import IndividualGridDay from "../individualGridDay/IndividualGridDay";
 
@@ -79,7 +79,17 @@ const Calendar: React.FC = () => {
     	let nextYear = parseInt(evt.target.value, 10);
     	onYearAndMonthChange([nextYear, nextMonth]);
   	};
+	
 
+	
+	const dayGridContainer = useRef<HTMLDivElement | null>(null); 
+	if (dayGridContainer.current !== null) {
+		const individualGridDayHeight = Math.floor(dayGridContainer.current.clientHeight / (calendarGridDayObjects.length / 7));
+	}
+	
+	
+	
+	
 	return (
     	<div className="calendar-root">
 			
@@ -133,7 +143,10 @@ const Calendar: React.FC = () => {
 
 
 			{/* The actual grid of the calendar */}
-      		<div className="days-grid">
+      		<div 
+			  	className="days-grid"
+				ref={dayGridContainer}
+			>
 
 				
 				{/* To fix this bug edit situation, just delete the line below and uncomment that part below that */}
