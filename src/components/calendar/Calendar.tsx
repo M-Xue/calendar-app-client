@@ -10,7 +10,7 @@ import {
 	getYearDropdownOptions
 } from "./helpers";
 
-import { ChangeEvent, useRef, useState } from 'react'; // Need ChangeEvent for defining the event type in TypeScript with the evt parameter for the handleMonthSelect and handleYearSelect event handler functions
+import { ChangeEvent, useLayoutEffect, useRef, useState } from 'react'; // Need ChangeEvent for defining the event type in TypeScript with the evt parameter for the handleMonthSelect and handleYearSelect event handler functions
 import './calendar.css';
 import IndividualGridDay from "../individualGridDay/IndividualGridDay";
 
@@ -81,13 +81,122 @@ const Calendar: React.FC = () => {
   	};
 	
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
-	const dayGridContainer = useRef<HTMLDivElement | null>(null); 
-	if (dayGridContainer.current !== null) {
-		const individualGridDayHeight = Math.floor(dayGridContainer.current.clientHeight / (calendarGridDayObjects.length / 7));
-	}
+	
+
+
+	// const [rerender, setRerender] = useState(false);
+	// useLayoutEffect(() => {
+	// 	if (rerender) {
+	// 		setRerender(false)
+	// 	} else {
+	// 		setRerender(true)
+	// 	}
+	// }, []);
+
+
+
+	const dayGridContainer = useRef<HTMLDivElement | null>(null);
+	console.log(dayGridContainer); 
+
+	const [dimensions, setDimensions] = useState({
+        height: window.innerHeight,
+        width: window.innerWidth
+    })
+    const [numFittableTags, setNumFittableTags] = useState(-1);
+	// const [individualDayGridContainerHeight, setIndividualDayGridContainerHeight] = useState(-1);
 	
 	
+
+	const handleResize = () => {
+        if (dayGridContainer.current !== null) {
+            // setIndividualDayGridContainerHeight(dayGridContainer.current.clientHeight / (calendarGridDayObjects.length / 7));
+
+            const individualDayGridContainerHeight = dayGridContainer.current.clientHeight / (calendarGridDayObjects.length / 7);
+
+			
+
+
+			const numTagsInRemainingSpace = Math.floor((individualDayGridContainerHeight - 1 - 28 - 5) / (24 + 5)); 
+
+			console.log("individualDayGridContainerHeight: "+ individualDayGridContainerHeight);
+			console.log("numTagsInRemainingSpace: "+ numTagsInRemainingSpace);
+
+			if (numTagsInRemainingSpace !== numFittableTags) {
+                setDimensions({
+                    height: window.innerHeight,
+                    width: window.innerWidth
+                });
+                window.removeEventListener('resize', handleResize); // You can remove it here becuase when the component is rerendered after the numFittableTags state us updated, the useEffect binding the handler will run again.
+            } 
+        }
+    }
+    useLayoutEffect(() => {
+        window.addEventListener('resize', handleResize)
+        return () => { window.removeEventListener('resize', handleResize) }
+    }); 
+    // This useEffect needs to run every time setNumFittableTags() is called (i.e., when numFittableTags is updated). Otherwise the event handler will always treat numFittableTags's value as its default initial value, which is -1.
+
+
+	useLayoutEffect(() => {
+        if (numFittableTags === -1) {
+            if (dayGridContainer.current !== null) {
+				// setIndividualDayGridContainerHeight(dayGridContainer.current.clientHeight / (calendarGridDayObjects.length / 7));
+
+				const individualDayGridContainerHeight = dayGridContainer.current.clientHeight / (calendarGridDayObjects.length / 7);
+
+                const numTagsInRemainingSpace = Math.floor((individualDayGridContainerHeight - 1 - 28 - 5) / (24 + 5)); // Read above. First instance of this same line of code has comment explaining it.
+                setNumFittableTags(numTagsInRemainingSpace);
+            }
+        } else {
+            if (dayGridContainer.current !== null) {
+				// setIndividualDayGridContainerHeight(dayGridContainer.current.clientHeight / (calendarGridDayObjects.length / 7));
+
+				const individualDayGridContainerHeight = dayGridContainer.current.clientHeight / (calendarGridDayObjects.length / 7);
+
+                const numTagsInRemainingSpace = Math.floor((individualDayGridContainerHeight - 1 - 28 - 5) / (24 + 5)); // Read above. First instance of this same line of code has comment explaining it.
+                if (numTagsInRemainingSpace !== numFittableTags) {
+                    setNumFittableTags(numTagsInRemainingSpace); 
+                } 
+            }
+        }
+        
+    }, [dimensions]);
+
+
+	console.log(numFittableTags);
+
+
+
+
+
+
+
+
+
+
 	
 	
 	return (
@@ -150,11 +259,14 @@ const Calendar: React.FC = () => {
 
 				
 				{/* To fix this bug edit situation, just delete the line below and uncomment that part below that */}
-			  	<IndividualGridDay day={calendarGridDayObjects[0]}/>
+			  	{/* <IndividualGridDay day={calendarGridDayObjects[0]} numFittableTags={numFittableTags}/> */}
 
-				{/* {calendarGridDayObjects.map((day) => (
-					<IndividualGridDay day={day}/>
-				))}  */}
+				{calendarGridDayObjects.map((day) => (
+					<IndividualGridDay 
+						day={day}
+						numFittableTags={numFittableTags}
+					/>
+				))} 
 
       		</div>
 
@@ -164,6 +276,35 @@ const Calendar: React.FC = () => {
 
 
 export default Calendar;
+
+
+
+
+
+
+
+
+
+
+
+
+	// const [individualDayGridContainerHeight, setIndividualDayGridContainerHeight] = useState(-1);
+
+	// const handleResize = () => {
+    //     if (dayGridContainer.current !== null) {
+    //         setIndividualDayGridContainerHeight(dayGridContainer.current.clientHeight / (calendarGridDayObjects.length / 7));
+    //     }
+	// 	window.removeEventListener('resize', handleResize); // You can remove it here becuase when the component is rerendered after the numFittableTags state us updated, the useEffect binding the handler will run again.
+    // }
+    // useLayoutEffect(() => {
+    //     window.addEventListener('resize', handleResize)
+    //     return () => { window.removeEventListener('resize', handleResize) }
+    // }); 
+    // // This useEffect needs to run every time setNumFittableTags() is called (i.e., when numFittableTags is updated). Otherwise the event handler will always treat numFittableTags's value as its default initial value, which is -1.
+
+
+
+
 
 
 

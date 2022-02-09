@@ -13,7 +13,8 @@ import IndividualEventTag from '../individualEventTag/IndividualEventTag';
 
 
 interface Props {
-    day: day
+    day: day,
+    numFittableTags: number
 }
 
 // Need to create a second interface for an object.
@@ -25,7 +26,7 @@ interface day {
     isPreviousMonth?: boolean
 }
 
-const IndividualGridDay: React.FC<Props> = ({ day }) => {
+const IndividualGridDay: React.FC<Props> = ({ day, numFittableTags }) => {
 
     // TODO FETCH ALL EVENTS FOR THE DAY HERE
 
@@ -89,54 +90,69 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
         }
     ]
 
+
+
+
+
+
+
+
+
+
+
     // Here, we are getting the height of the grid day every time the grid day component is rendered. This will allow us to calculate how many event tags can fit in the grid cell. If we have too many events, we will collapse them into a "X more events" button.
-    const dayGridContainer = useRef<HTMLDivElement | null>(null); 
+    const individualDayGridContainer = useRef<HTMLDivElement | null>(null); 
 
-    const [dimensions, setDimensions] = useState({
-        height: window.innerHeight,
-        width: window.innerWidth
-    })
-    const [numFittableTags, setNumFittableTags] = useState(-1);
+    // console.log(individualDayGridContainer);
 
-    const handleResize = () => {
-        if (dayGridContainer.current !== null) {
-            // const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
-            const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - 1 - 28 - 5) / (24 + 5)); 
-            // The 28 is the grid header, the 5 is the top margin of the very first grid event tag, the 24 is the event tag, the 5 is every margin for every event tag (since they collapse)
-            // The -1 is so that we are calculating how many event tags would fit if the grid item container was 1 pixel smaller. This allows the event tag renders to adjust if we are perfectly fitting the full number of event tags.
-            // Otherwise, if we have 7 tags and the gird was previously larger than 7 tags, we can't go below 7 tags because we can't resize the day grid item container smaller than the 7 tags, making the responsiveness stuck.
+
+
+
+    // const [dimensions, setDimensions] = useState({
+    //     height: window.innerHeight,
+    //     width: window.innerWidth
+    // })
+    // const [numFittableTags, setNumFittableTags] = useState(-1);
+
+    // const handleResize = () => {
+    //     if (individualDayGridContainer.current !== null) {
+    //         // const numTagsInRemainingSpace = Math.floor((individualDayGridContainer.current.clientHeight - dayGridHeader.current.clientHeight - 5) / (eventTagContainer.current.clientHeight + 5));
+    //         const numTagsInRemainingSpace = Math.floor((individualDayGridContainer.current.clientHeight - 1 - 28 - 5) / (24 + 5)); 
+    //         // The 28 is the grid header, the 5 is the top margin of the very first grid event tag, the 24 is the event tag, the 5 is every margin for every event tag (since they collapse)
+    //         // The -1 is so that we are calculating how many event tags would fit if the grid item container was 1 pixel smaller. This allows the event tag renders to adjust if we are perfectly fitting the full number of event tags.
+    //         // Otherwise, if we have 7 tags and the gird was previously larger than 7 tags, we can't go below 7 tags because we can't resize the day grid item container smaller than the 7 tags, making the responsiveness stuck.
             
-            if (numTagsInRemainingSpace !== numFittableTags) {
-                setDimensions({
-                    height: window.innerHeight,
-                    width: window.innerWidth
-                });
-                window.removeEventListener('resize', handleResize); // You can remove it here becuase when the component is rerendered after the numFittableTags state us updated, the useEffect binding the handler will run again.
-            } 
-        }        
-    }
-    useLayoutEffect(() => {
-        window.addEventListener('resize', handleResize)
-        return () => { window.removeEventListener('resize', handleResize) }
-    }); 
-    // This useEffect needs to run every time setNumFittableTags() is called (i.e., when numFittableTags is updated). Otherwise the event handler will always treat numFittableTags's value as its default initial value, which is -1.
+    //         if (numTagsInRemainingSpace !== numFittableTags) {
+    //             setDimensions({
+    //                 height: window.innerHeight,
+    //                 width: window.innerWidth
+    //             });
+    //             window.removeEventListener('resize', handleResize); // You can remove it here becuase when the component is rerendered after the numFittableTags state us updated, the useEffect binding the handler will run again.
+    //         } 
+    //     }        
+    // }
+    // useLayoutEffect(() => {
+    //     window.addEventListener('resize', handleResize)
+    //     return () => { window.removeEventListener('resize', handleResize) }
+    // }); 
+    // // This useEffect needs to run every time setNumFittableTags() is called (i.e., when numFittableTags is updated). Otherwise the event handler will always treat numFittableTags's value as its default initial value, which is -1.
 
-    useLayoutEffect(() => {
-        if (numFittableTags === -1) {
-            if (dayGridContainer.current !== null) {
-                const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - 1 - 28 - 5) / (24 + 5)); // Read above. First instance of this same line of code has comment explaining it.
-                setNumFittableTags(numTagsInRemainingSpace);
-            }
-        } else {
-            if (dayGridContainer.current !== null) {
-                const numTagsInRemainingSpace = Math.floor((dayGridContainer.current.clientHeight - 1 - 28 - 5) / (24 + 5)); // Read above. First instance of this same line of code has comment explaining it.
-                if (numTagsInRemainingSpace !== numFittableTags) {
-                    setNumFittableTags(numTagsInRemainingSpace); 
-                } 
-            }
-        }
+    // useLayoutEffect(() => {
+    //     if (numFittableTags === -1) {
+    //         if (individualDayGridContainer.current !== null) {
+    //             const numTagsInRemainingSpace = Math.floor((individualDayGridContainer.current.clientHeight - 1 - 28 - 5) / (24 + 5)); // Read above. First instance of this same line of code has comment explaining it.
+    //             setNumFittableTags(numTagsInRemainingSpace);
+    //         }
+    //     } else {
+    //         if (individualDayGridContainer.current !== null) {
+    //             const numTagsInRemainingSpace = Math.floor((individualDayGridContainer.current.clientHeight - 1 - 28 - 5) / (24 + 5)); // Read above. First instance of this same line of code has comment explaining it.
+    //             if (numTagsInRemainingSpace !== numFittableTags) {
+    //                 setNumFittableTags(numTagsInRemainingSpace); 
+    //             } 
+    //         }
+    //     }
         
-    }, [dimensions]);
+    // }, [dimensions]);
 
     
     const calculateRenderedTagsArray = () => {
@@ -177,7 +193,7 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
         <>
             <div
                 key={day.dateString}
-                ref={dayGridContainer}
+                ref={individualDayGridContainer}
 
                 className={classNames("day-grid-item-container", "modalButton",
                 
@@ -217,6 +233,21 @@ const IndividualGridDay: React.FC<Props> = ({ day }) => {
 
 
 export default IndividualGridDay;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
